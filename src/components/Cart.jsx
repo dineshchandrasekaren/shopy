@@ -28,6 +28,15 @@ const Cart = () => {
   };
   return (
     <div>
+      <h1
+        style={{
+          textAlign: "left",
+          margin: "0 0 1% 1%",
+          fontSize: "2rem",
+        }}
+      >
+        CART
+      </h1>
       {cart.map((items) => (
         <CartItem getQuantity={changeQuantity} key={items.id} {...items} />
       ))}
