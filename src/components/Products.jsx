@@ -1,5 +1,5 @@
 import React from "react";
-import DATA from "../data";
+import Store from "../context/Context";
 import ProductCard from "./ProductCard";
 import "./Products.css";
 const Products = () => {
@@ -14,10 +14,15 @@ const Products = () => {
       >
         SHOES
       </h1>
+
       <div className="product">
-        {DATA.map((items) => (
-          <ProductCard key={items.id} {...items} />
-        ))}
+        <Store.Consumer>
+          {(store) =>
+            store.product.items.map((items) => (
+              <ProductCard key={items.id} {...items} />
+            ))
+          }
+        </Store.Consumer>
       </div>
     </>
   );

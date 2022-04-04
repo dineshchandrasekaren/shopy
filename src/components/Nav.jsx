@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IoDiamondOutline as Logo } from "react-icons/io5";
 
 import { NavLink, useNavigate } from "react-router-dom";
-
+import Store from "../context/Context";
 const Nav = () => {
   const navigate = useNavigate();
+  let store = useContext(Store);
   return (
     <nav
       style={{
@@ -45,7 +46,7 @@ const Nav = () => {
           className="center-absolute"
           style={{ fontSize: "80%", marginTop: "8%" }}
         >
-          1
+          {store.product.cart.length}
         </p>
       </div>
     </nav>

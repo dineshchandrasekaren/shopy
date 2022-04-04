@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Rating from "./Rating";
+import Store from "../context/Context";
 import "./ProductCard.css";
-const ProductCard = ({ imageUrl, name, price, rating }) => {
+const ProductCard = ({ id, imageUrl, name, price, rating }) => {
+  let store = useContext(Store);
+  let addCart = (id) => {
+    store.isAdded(id, true);
+  };
   return (
     <div>
       <div className="image_container">
-        <button className="cart_button">Add to Cart</button>
+        <button onClick={() => addCart(id)} className="cart_button">
+          Add to Cart
+        </button>
         <img
           src={imageUrl}
           style={{ width: "100%", height: "100%" }}
@@ -23,7 +30,7 @@ const ProductCard = ({ imageUrl, name, price, rating }) => {
           <span>{name}</span>
           <p style={{ fontWeight: 500 }}>$ {price}</p>
         </span>
-        <Rating rating={rating} />
+        <Rating key={name} rating={rating} />
       </div>
     </div>
   );

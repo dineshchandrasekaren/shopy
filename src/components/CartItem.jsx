@@ -6,8 +6,17 @@ import {
 } from "react-icons/md";
 import Rating from "./Rating";
 import "./CartItem.css";
-const CartItem = ({ imageUrl, id, name, price, rating }) => {
-  let [quantity, setQuantity] = useState(1);
+const CartItem = ({
+  getQuantity,
+  imageUrl,
+  id,
+  name,
+  price,
+  rating,
+  quantity,
+  total,
+}) => {
+  let quan = 1;
 
   return (
     <div className="cart_container">
@@ -25,7 +34,7 @@ const CartItem = ({ imageUrl, id, name, price, rating }) => {
       >
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <h3>{name}</h3>
-          <p style={{ fontWeight: 700 }}>$ {price}</p>
+          <p style={{ fontWeight: 700 }}>$ {total}</p>
         </div>
         <div
           style={{
@@ -37,30 +46,46 @@ const CartItem = ({ imageUrl, id, name, price, rating }) => {
           }}
         >
           <div
+            onClick={() => {
+              if (!quantity <= 0) {
+                quan = quantity--;
+                getQuantity(id, quan);
+              }
+            }}
             style={{
               cursor: "pointer",
               padding: "20px",
               paddingLeft: 0,
             }}
-            onClick={() => setQuantity(quantity >= 1 ? quantity-- : 1)}
           >
             <MdOutlineArrowBackIosNew
-              onClick={() => setQuantity(quantity >= 1 ? quantity-- : 1)}
+              onClick={() => {
+                if (!quantity <= 0) {
+                  quan = quantity--;
+                  getQuantity(id, quan);
+                }
+              }}
               size={25}
             />
           </div>
           <p>{quantity}</p>
           <div
+            onClick={() => {
+              quan = quantity++;
+              getQuantity(id, quan);
+            }}
             style={{ cursor: "pointer", padding: "20px" }}
-            onClick={() => setQuantity(quantity++)}
           >
             <MdOutlineArrowForwardIos
-              onClick={() => setQuantity(quantity++)}
+              onClick={() => {
+                quan = quantity++;
+                getQuantity(id, quan);
+              }}
               size={25}
             />
           </div>
         </div>
-        <Rating rating={rating} />
+        <Rating key={id} rating={rating} />
       </div>
     </div>
   );
